@@ -5,22 +5,18 @@ function scrape(id) {
     fetch(`https://en.wikipedia.org/w/api.php?action=parse&page=${id}&format=json&origin=*`).then(e => e.json()).then(i => {
       var data = new DOMParser().parseFromString(i.parse.text["*"], "text/html");
       var text = "";
-      var link;
       data.querySelectorAll("p, ul, ol, a").forEach(c => {
-        if (c.tagName == "A" && link == null && c.href.includes("wiki/")) {
-          link = c.href.split("wiki/")[1];
-        }
-        else {
-          text += c.innerText+"\n";
-        }
+        text += c.innerText+"\n";
       });
-      var words = text.split(/[ \n]+/);
-      getPage(link);
+      words = text.split(/[ \n]+/).map(word => word.replace(/[^a-zA-Z ]/, ""));
     });
     idx++;
   }
 }
-fetch("https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json&origin=*").then(e => e.json()).then(i => {scrape(i.query.random[0].title)});
+
+for (var i = 0;i<=100;i++) {
+  fetch("https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json&origin=*").then(e => e.json()).then(i => {scrape(i.query.random[0].title)});
+}
 
 function predict(after) {
   if (!words.includes(after)) return alert("Sry coundlt predict that");
