@@ -1,4 +1,4 @@
-class Predictor {
+class ScrAIp1 {
   constructor() {}
   words=[];
   scrape(id) {
