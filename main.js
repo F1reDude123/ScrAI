@@ -1,45 +1,44 @@
-var idx = 0;
-var words;
-function scrape(id) {
-  if (idx <= 10) {
+class Predictor {
+  constructor() {}
+  words=[];
+  scrape(id) {
     fetch(`https://en.wikipedia.org/w/api.php?action=parse&page=${id}&format=json&origin=*`).then(e => e.json()).then(i => {
       var data = new DOMParser().parseFromString(i.parse.text["*"], "text/html");
       var text = "";
-      data.querySelectorAll("p, ul, ol, a").forEach(c => {
+      data.querySelectorAll("p, ul, ol").forEach(c => {
         text += c.innerText+"\n";
       });
-      words = text.split(/[ \n]+/).map(word => word.replace(/[^a-zA-Z ]/, ""));
+      words.push(...text.split(/[ \n]+/).map(word => word.replace(/[^a-zA-Z ]/g, "")));
     });
-    idx++;
+  }
+  
+  #indexOfNth(arr, val, n) {
+    let count = 0;
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === val) {
+        if (count === n) return i;
+        count++;
+      }
+    }
+    return -1;
+  }
+  
+  easyScrape(limit) {
+    for (var i=0;i<=limit;i++) fetch("https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json&origin=*").then(e => e.json()).then(i => {scrape(i.query.random[0].title)});
+  }
+  
+  predict(after) {
+    if (!words.includes(after)) throw new Error("Cannot predict word from this context");
+    var afters = [];
+    var filter = words.filter(word => word == after);
+    var dict = {};
+    for (var i=0;i<filter.length;i++) {
+    	afters.push(words[this.#indexOfNth(words, after, i)+1]);
+    }
+    for (var i=0;i<afters.length;i++) dict[afters[i]] = 0;
+    afters.forEach(e => {
+    	dict[e]++;
+    });
+    return keys[values.indexOf(Math.max(...Object.values(dict)))];
   }
 }
-
-for (var i = 0;i<=100;i++) {
-  fetch("https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json&origin=*").then(e => e.json()).then(i => {scrape(i.query.random[0].title)});
-}
-
-function predict(after) {
-  if (!words.includes(after)) return alert("Sry coundlt predict that");
-  alert(words[words.indexOf(after)+1]);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
