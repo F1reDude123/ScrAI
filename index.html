@@ -16,7 +16,22 @@
       padding:20px;
       background-image:linear-gradient(to right, transparent, #225 25%, #225 50%, #225 75%, transparent), url("https://f1redude123.github.io/ScrAIp/banner.png");
     }
-    button {
+    button#btn1 {
+      background:#33f;
+      border:none;
+      border-radius: 40px;
+      color:#fff;
+      padding:20px;
+      font-size:15px;
+      transition:background 0.2s, border 0.2s, color 0.2s;
+      font-family:"Raleway";
+      font-weight:bold;
+    }
+    button#btn1:hover {
+      background:#fff;
+      color:#000;
+    }
+    button#btn2 {
       background:transparent;
       border-color:#33f;
       border-width:3px;
@@ -24,10 +39,12 @@
       border-style:solid;
       color:#33f;
       padding:20px;
-      font-size:20px;
+      font-size:15px;
       transition:background 0.2s, border 0.2s, color 0.2s;
+      font-family:"Raleway";
+      font-weight:bold;
     }
-    button:hover {
+    button#btn2:hover {
       background:#33f;
       border-color:transparent;
       color:#fff;
@@ -38,19 +55,36 @@
       border-radius:10px;
       padding:5px;
     }
+    footer {
+      background:#333;
+      padding:30px;
+      text-align:left;
+    }
   </style>
   <body>
     <header>
-      <h1>ScrAIp</h1>
+      <h1 style="font-size:100px;">ScrAIp</h1>
       <br>
-      <p>The AI for you</p>
+      <b>The AI for you</b>
     </header>
     <br>
     <h4>ScrAIp is a free AI tool, built to use web scraping to collect data. Our latest text prediction model, ScrAIp1, is now available as a JavaScript file.</h4>
     <br>
     <br>
-    <button onclick="window.open().appendChild(document.createElement('p').innerText='lol nothing here')">Try it</button>
+    <button id="btn1" onclick="window.open().appendChild(document.createElement('p').innerText='lol nothing here')">Try it</button>
     <br>
-    <button onclick="var a=document.createElement('a');a.href='https://f1redude123.github.io/ScrAIp/main.js';a.download='main.js';document.body.appendChild(a);a.click();document.body.removeChild(a)">Download</button>
+    <br>
+    <button id="btn2" onclick="var a=document.createElement('a');a.href='https://f1redude123.github.io/ScrAIp/main.js';a.download='main.js';document.body.appendChild(a);a.click();document.body.removeChild(a)">Download</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer>
+      <small id="copyright"></small>
+    </footer>
+    <script>
+    document.getElementById("copyright").innerText = `Copyright © ${new Date().getFullYear()} FireDude123`;
+    </script>
   </body>
 </html>
