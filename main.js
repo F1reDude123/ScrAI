@@ -1,6 +1,6 @@
 class ScrAIp1 {
   constructor() {}
-  words=[];
+  this.words=[];
   scrape(id) {
     fetch(`https://en.wikipedia.org/w/api.php?action=parse&page=${id}&format=json&origin=*`).then(e => e.json()).then(i => {
       var data = new DOMParser().parseFromString(i.parse.text["*"], "text/html");
