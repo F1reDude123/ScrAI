@@ -1,6 +1,5 @@
 class ScrAIp1 {
-  constructor() {}
-  this.words=[];
+  constructor() {this.words=[];}
   scrape(id) {
     fetch(`https://en.wikipedia.org/w/api.php?action=parse&page=${id}&format=json&origin=*`).then(e => e.json()).then(i => {
       var data = new DOMParser().parseFromString(i.parse.text["*"], "text/html");
@@ -24,7 +23,7 @@ class ScrAIp1 {
   }
   
   easyScrape(limit) {
-    for (var i=0;i<=limit;i++) fetch("https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json&origin=*").then(e => e.json()).then(i => {scrape(i.query.random[0].title)});
+    for (var i=0;i<=limit;i++) fetch("https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json&origin=*").then(e => e.json()).then(i => {this.scrape(i.query.random[0].title)});
   }
   
   predict(after) {
