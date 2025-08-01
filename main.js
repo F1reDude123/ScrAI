@@ -8,15 +8,15 @@ class ScrAIp1 {
       data.querySelectorAll("p, ul, ol").forEach(c => {
         text += c.innerText+"\n";
       });
-      words.push(...text.split(/[ \n]+/).map(word => word.replace(/[^a-zA-Z ]/g, "")));
+      this.words.push(...text.split(/[ \n]+/).map(word => word.replace(/[^a-zA-Z ]/g, "")));
     });
   }
   
   #indexOfNth(arr, val, n) {
-    let count = 0;
+    var count = 0;
     for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === val) {
-        if (count === n) return i;
+      if (arr[i] == val) {
+        if (count == n) return i;
         count++;
       }
     }
@@ -28,12 +28,12 @@ class ScrAIp1 {
   }
   
   predict(after) {
-    if (!words.includes(after)) throw new Error("Cannot predict word from this context");
+    if (!this.words.includes(after)) throw new Error("Cannot predict word from this context");
     var afters = [];
-    var filter = words.filter(word => word == after);
+    var filter = this.words.filter(word => word == after);
     var dict = {};
     for (var i=0;i<filter.length;i++) {
-    	afters.push(words[this.#indexOfNth(words, after, i)+1]);
+    	afters.push(this.words[this.#indexOfNth(this.words, after, i)+1]);
     }
     for (var i=0;i<afters.length;i++) dict[afters[i]] = 0;
     afters.forEach(e => {
