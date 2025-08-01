@@ -38,6 +38,6 @@ class ScrAIp1 {
     afters.forEach(e => {
     	dict[e]++;
     });
-    return keys[values.indexOf(Math.max(...Object.values(dict)))];
+    return Object.keys(dict)[Object.values(dict).indexOf(Math.max(...Object.values(dict)))];
   }
 }
