@@ -26,5 +26,5 @@ function predictInput(what) {
 }
 </script>
 ```
-More info will be avaibale on the upcoming documentation.
+More info will be available on the website.
 Hope you have fun with ScrAIp :)
