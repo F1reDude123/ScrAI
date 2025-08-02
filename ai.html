@@ -16,9 +16,11 @@
     footer {
       position:fixed;
       bottom:0;
-      background:#000;
+      background:transparent;
       padding:20px;
       width:100%;
+      display:flex;
+      justify-content:center;
     }
     textarea {
       padding:5px;
@@ -27,51 +29,74 @@
       height:30px;
       resize:none;
       background:#000;
+      color:#fff;
     }
     button {
       padding:10px;
-      background:#336;
+      background:#33f;
       color:#fff;
+      border:none;
+      border-radius:10px;
+      height:40px;
     }
     p.me {
-      margin-right:auto;
+      margin-left:auto;
+      display:inline-block;
       padding:10px;
       background:#eee;
-      width:200px;
+      max-width:200px;
       color:#000;
       border-radius:10px;
       border-bottom-right-radius:0;
+      width:fit-content;
+      transform:translateX(-20px);
+      text-align:left;
     }
     p.scraip {
       margin-right:auto;
       padding:10px;
-      background:#336;
-      width:200px;
+      background:#33f;
+      max-width:200px;
       color:#fff;
       border-radius:10px;
       border-bottom-left-radius:0;
+      width:fit-content;
+      transform:translateX(20px);
+      text-align:left;
+    }
+    #box {
+      background:#111;
+      border:1px solid #333;
+      border-radius:10px;
+      height:50vh;
+      display:flex;
+      flex-direction:column;
+      overflow:auto;
     }
   </style>
   <body>
     <h1>ScrAIp1 predictor algorithm demo</h1>
     <p>Type in the box and watch the magic happen!</p>
+    <div id="box"></div>
     <footer>
       <textarea id="text" placeholder="Enter text to predict..."></textarea>
-      <button onclick="try{showMessage(this.previousElementSibling.value, p.predict(this.previousElementSibling.value))}catch(e){alert(e)}">Predict</button>
+      <button onclick="try{showMessage(this.previousElementSibling.value, p.predict(this.previousElementSibling.value))}catch(e){showMessage(this.previousElementSibling.value, e)}">Predict</button>
     </footer>
     <script src="https://f1redude123.github.io/ScrAIp/main.js"></script>
     <script>
       var p = new ScrAIp1();
       p.easyScrape(10);
       function showMessage(e, r) {
+      	var box = document.getElementById("box");
         var p1 = document.createElement("p");
         p1.innerText=e;
         p1.className = "me";
-        document.body.appendChild(p1);
+        box.appendChild(p1);
         var p2 = document.createElement("p");
         p2.innerText=r;
         p2.className = "scraip";
-        document.body.appendChild(p2);
+        box.appendChild(p2);
+        box.scrollTop=box.scrollHeight;
       }
     </script>
   </body>
